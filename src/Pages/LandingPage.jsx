@@ -135,10 +135,12 @@ const LandingPage = () => {
             </section>
 
             {/* ================= MODULES SECTION (100VH) ================= */}
-            <section id="modules" className="h-screen bg-slate-50 flex flex-col overflow-hidden">
-
-                {/* 1. Header Area (Fixed Height) */}
-                <div className="pt-12 pb-8 px-8 text-center shrink-0">
+            <section
+                id="modules"
+                className="min-h-screen md:h-screen bg-slate-50 flex flex-col overflow-hidden"
+            >
+                {/* 1. Header Area */}
+                <div className="pt-12 pb-8 px-6 md:px-8 text-center shrink-0">
                     <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -154,28 +156,35 @@ const LandingPage = () => {
                     </motion.div>
                 </div>
 
-                {/* 2. Main Content Area (Flexible Height) */}
-                <div className="flex-1 min-h-0 max-w-7xl mx-auto w-full px-6 pb-12 flex flex-col md:flex-row gap-8">
-
+                {/* 2. Main Content Area */}
+                <div className="flex-1 min-h-0 max-w-7xl mx-auto w-full px-4 md:px-6 pb-12 flex flex-col md:flex-row gap-6 md:gap-8">
                     {/* LEFT: Sidebar Tabs */}
-                    <div className="md:w-1/3 lg:w-1/4 overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="md:w-1/3 lg:w-1/4 md:overflow-y-auto custom-scrollbar">
                         <div className="flex flex-col gap-3">
                             {modules.map((m, i) => (
                                 <button
                                     key={m.title}
                                     onClick={() => setActive(i)}
                                     className={`group cursor-pointer relative p-4 rounded-xl flex items-center gap-4 transition-all duration-300 border ${active === i
-                                        ? "bg-white border-slate-200 shadow-sm ring-1 ring-slate-200"
-                                        : "bg-transparent border-transparent hover:bg-slate-200/50"
+                                            ? "bg-white border-slate-200 shadow-sm ring-1 ring-slate-200"
+                                            : "bg-transparent border-transparent hover:bg-slate-200/50"
                                         }`}
                                 >
-                                    <div className={`shrink-0 p-2.5 rounded-lg transition-colors ${active === i ? m.bg : "bg-slate-200"
-                                        }`}>
-                                        <m.icon className={`w-5 h-5 ${active === i ? m.color : "text-slate-500"}`} />
+                                    <div
+                                        className={`shrink-0 p-2.5 rounded-lg transition-colors ${active === i ? m.bg : "bg-slate-200"
+                                            }`}
+                                    >
+                                        <m.icon
+                                            className={`w-5 h-5 ${active === i ? m.color : "text-slate-500"
+                                                }`}
+                                        />
                                     </div>
 
                                     <div className="text-left overflow-hidden">
-                                        <p className={`font-bold text-sm truncate ${active === i ? "text-slate-900" : "text-slate-500"}`}>
+                                        <p
+                                            className={`font-bold text-sm truncate ${active === i ? "text-slate-900" : "text-slate-500"
+                                                }`}
+                                        >
                                             {m.title}
                                         </p>
                                     </div>
@@ -202,8 +211,8 @@ const LandingPage = () => {
                                 transition={{ duration: 0.3 }}
                                 className="flex flex-col h-full"
                             >
-                                {/* Top Bar Decoration */}
-                                <div className="px-6 py-4 border-bottom bg-slate-50/50 flex items-center justify-between shrink-0 border-b border-slate-100">
+                                {/* Top Bar */}
+                                <div className="px-6 py-4 bg-slate-50/50 flex items-center justify-between shrink-0 border-b border-slate-100">
                                     <div className="flex gap-1.5">
                                         <div className="w-3 h-3 rounded-full bg-slate-200" />
                                         <div className="w-3 h-3 rounded-full bg-slate-200" />
@@ -214,8 +223,8 @@ const LandingPage = () => {
                                     </span>
                                 </div>
 
-                                {/* Image Container */}
-                                <div className="flex-1 relative overflow-hidden p-6 bg-slate-50">
+                                {/* IMAGE - DESKTOP ONLY */}
+                                <div className="hidden md:flex flex-1 relative overflow-hidden p-6 bg-slate-50">
                                     <img
                                         src={modules[active].image}
                                         alt={modules[active].alt}
@@ -223,11 +232,15 @@ const LandingPage = () => {
                                     />
                                 </div>
 
-                                {/* Bottom Content Area */}
-                                <div className="p-8 bg-white border-t border-slate-100 shrink-0">
+                                {/* Bottom Content */}
+                                <div className="p-5 md:p-8 bg-white border-t border-slate-100 shrink-0">
                                     <div className="max-w-2xl">
                                         <h4 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
-                                            <span className={`w-2 h-6 rounded-full ${modules[active].bg.replace('100', '500')}`} />
+                                            <span
+                                                className={`w-2 h-6 rounded-full ${modules[
+                                                    active
+                                                ].bg.replace("100", "500")}`}
+                                            />
                                             Functional Overview
                                         </h4>
                                         <p className="text-slate-600 leading-relaxed">
@@ -240,6 +253,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </section>
+
 
 
             {/* ================= FINAL ================= */}
