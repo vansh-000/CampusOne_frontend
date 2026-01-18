@@ -23,6 +23,8 @@ const App = () => {
 
   useEffect(() => {
     const checkInstitutionAuth = async () => {
+
+      console.log("Auth Page:", import.meta.env.VITE_BACKEND_URL)
       try {
         const res = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/api/institutions/current-institution`,
