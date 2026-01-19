@@ -38,9 +38,9 @@ const EditDepartment = () => {
         try {
             setLoading(true);
 
-            const res = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/departments/${departmentId}`
-            );
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/departments/${departmentId}`, {
+                headers: { Authorization: `Bearer ${institutionToken}` }
+            });
 
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Failed to fetch department");

@@ -16,6 +16,10 @@ import {
   FolderPlus,
   Moon,
   Sun,
+  BookA,
+  Layers3,
+  BookCheck,
+  BookPlus,
 } from "lucide-react";
 import { useAuth } from "../providers/AuthProvider.jsx";
 import { toast } from "react-toastify";
@@ -65,11 +69,30 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             label: "Departments",
             icon: Building2,
             items: [
-              { label: "All Departments", to: "/institution/departments", icon: Building },
+              { label: "All Departments",
+                to: "/institution/departments",
+                icon: Building },
+
               {
                 label: "Create Department",
                 to: "/institution/departments/create",
                 icon: FolderPlus,
+              },
+            ],
+          },
+          {
+            key: "branches",
+            label: "Branches",
+            icon: BookA,
+            items: [
+              { label: "All Branches",
+                to: "/institution/branches",
+                icon: BookCheck },
+
+              {
+                label: "Create Branch",
+                to: "/institution/branches/create",
+                icon: BookPlus,
               },
             ],
           },
