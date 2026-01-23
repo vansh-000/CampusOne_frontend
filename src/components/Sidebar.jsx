@@ -11,12 +11,9 @@ import {
   User2,
   ChevronDown,
   Building2,
-  Users,
   Building,
-  FolderPlus,
   Moon,
   Sun,
-  BookA,
   GraduationCap,
   PlusSquare,
   List,
@@ -25,6 +22,7 @@ import {
   LayoutGrid,
   UserCircle,
   Grid3X3,
+  UserPen,
 } from "lucide-react";
 import { useAuth } from "../providers/AuthProvider.jsx";
 import { toast } from "react-toastify";
@@ -43,11 +41,24 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   const [openGroups, setOpenGroups] = useState({
     faculties: false,
     departments: false,
+    branches: false,
+    courses: false,
   });
 
+
   const toggleGroup = (key) => {
-    setOpenGroups((p) => ({ ...p, [key]: !p[key] }));
+    setOpenGroups((prev) => {
+      const next = Object.keys(prev).reduce((acc, k) => {
+        acc[k] = false;
+        return acc;
+      }, {});
+
+      next[key] = !prev[key];
+      return next;
+    });
   };
+
+
 
   const config = useMemo(() => {
     // INSTITUTION
@@ -67,7 +78,14 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             key: "faculties",
             label: "Faculties",
             icon: GraduationCap,
-            items: [],
+            items: [
+              {
+                label: "All Faculties",
+                to: "/institution/faculties",
+                icon: UserPen,
+                end: true,
+              },
+            ],
           },
 
           {
@@ -79,6 +97,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 label: "All Departments",
                 to: "/institution/departments",
                 icon: Building,
+                end: true,
               },
               {
                 label: "Create Department",
@@ -97,6 +116,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 label: "All Branches",
                 to: "/institution/branches",
                 icon: List,
+                end: true,
               },
               {
                 label: "Create Branch",
@@ -115,6 +135,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 label: "All Courses",
                 to: "/institution/courses",
                 icon: ListChecks,
+                end: true,
               },
               {
                 label: "Create Course",
@@ -176,9 +197,10 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     return (
       <NavLink
         to={item.to}
+        end={item.end}
         onClick={() => isMobile && setMobileOpen(false)}
         className={({ isActive }) =>
-          `group flex items-center gap-3 rounded-xl px-3 py-3 font-semibold transition border
+          `group flex items-center gap-3 rounded-xl px-3 py-2 font-semibold transition border
           ${isActive
             ? "bg-[var(--active-bg)] text-[var(--active-text)] border-[var(--active-border)]"
             : "bg-transparent text-[var(--text)] border-transparent hover:bg-[var(--hover)]"
@@ -201,7 +223,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         <button
           type="button"
           onClick={() => toggleGroup(group.key)}
-          className={`w-full flex items-center justify-between gap-3 rounded-xl px-3 py-3 font-bold transition border
+          className={`w-full flex items-center justify-between gap-3 rounded-xl px-3 py-2 font-bold transition border
             hover:bg-[var(--hover)]
             ${isOpen
               ? "bg-[var(--hover)] border-[var(--border)]"
@@ -227,11 +249,17 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
         {/* group items */}
         {isOpen && (
-          <div className={`${collapsed ? "" : "pl-3"} flex flex-col gap-2`}>
-            {group.items.map((item) => (
-              <SidebarLink key={item.to} item={item} isMobile={isMobile} />
-            ))}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out  
+              ${isOpen ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-1"}`}
+          >
+            <div className={`${collapsed ? "" : "pl-3"} flex flex-col gap-1.5 pt-2`}>
+              {group.items.map((item) => (
+                <SidebarLink key={item.to} item={item} isMobile={isMobile} />
+              ))}
+            </div>
           </div>
+
         )}
       </div>
     );
@@ -303,34 +331,26 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       </div>
 
       {/* Menu */}
-      <div className="px-3 py-4 flex-1 overflow-y-auto">
-        {!collapsed && (
-          <p className="text-[11px] font-bold text-[var(--muted-text)] tracking-wider mb-3 px-2">
-            MENU
-          </p>
-        )}
+      <div className="px-3 py-3 flex-1 overflow-y-auto">
 
         <nav className="flex flex-col gap-2">
-          {/* normal items */}
           {config.items.map((item) => (
             <SidebarLink key={item.to} item={item} isMobile={isMobile} />
           ))}
 
-          {/* grouped dropdowns */}
           {config.groups?.length > 0 && (
-            <div className="mt-3 space-y-3">
-              {!collapsed && (
-                <p className="text-[11px] font-bold text-[var(--muted-text)] tracking-wider px-2">
-                  MANAGE
-                </p>
-              )}
+            <div className="my-3 border-t border-[var(--border)]" />
+          )}
 
+          {config.groups?.length > 0 && (
+            <div className="space-y-3">
               {config.groups.map((group) => (
                 <SidebarGroup key={group.key} group={group} isMobile={isMobile} />
               ))}
             </div>
           )}
         </nav>
+
       </div>
 
       {/* Theme Toggle + Logout (bottom) */}
@@ -339,9 +359,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
           {/* Theme Toggle (smaller) */}
           <button
             onClick={toggleTheme}
-            className="flex-[0.8] flex items-center justify-center gap-2 rounded-xl px-3 py-3 font-semibold border
-      border-[var(--border)] bg-[var(--surface)] text-[var(--text)]
-      hover:bg-[var(--hover)] transition"
+            className="flex-[0.8] flex items-center justify-center gap-2 rounded-xl px-3 py-2 font-semibold border
+            border-[var(--border)] bg-[var(--surface)] text-[var(--text)]hover:bg-[var(--hover)] transition"
             type="button"
             title={collapsed ? "Toggle Theme" : undefined}
           >
