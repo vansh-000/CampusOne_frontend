@@ -520,7 +520,7 @@ const EditFaculty = () => {
       setFinishLoadingMap((p) => ({ ...p, [index]: true }));
 
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/faculties/finish-course-by-faculty/${facultyId}/${courseId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/courses/${courseId}/finish`,
         {
           method: "PUT",
           headers: {
@@ -638,7 +638,7 @@ const EditFaculty = () => {
 
       if (designationChanged || dojChanged) {
         const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/edit-faculty/${facultyId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/self/${facultyId}`,
           {
             method: "PUT",
             headers: {
@@ -660,7 +660,7 @@ const EditFaculty = () => {
 
       if (deptChanged) {
         const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/update-department/${facultyId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/department/`,
           {
             method: "PUT",
             headers: {
@@ -702,7 +702,7 @@ const EditFaculty = () => {
         // remove deleted
         for (const r of toRemove) {
           const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/faculties/delete-courses/faculty/${facultyId}/course/${r.courseId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/courses/${r.courseId}`,
             {
               method: "PUT",
               headers: {
@@ -725,7 +725,7 @@ const EditFaculty = () => {
         // add new ones
         for (const a of toAdd) {
           const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/faculties/add-courses/faculty/${facultyId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/courses`,
             {
               method: "PUT",
               headers: {
@@ -751,7 +751,7 @@ const EditFaculty = () => {
 
       if (isInChargeChanged) {
         const res = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/toggle-in-charge/${facultyId}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/in-charge`,
           {
             method: "PUT",
             headers: {

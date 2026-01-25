@@ -85,6 +85,12 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 icon: UserPen,
                 end: true,
               },
+              {
+                label: "Create Faculty",
+                to: "/institution/faculties/create",
+                icon: UserPen,
+                end: true,
+              },
             ],
           },
 

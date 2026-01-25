@@ -64,7 +64,7 @@ const InstitutionDepartments = () => {
         if (!institutionId) return;
         try {
             const res = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/institution/${institutionId}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/by-institution/${institutionId}`,
                 { headers: { Authorization: `Bearer ${institutionToken}` } }
             );
             const data = await res.json();

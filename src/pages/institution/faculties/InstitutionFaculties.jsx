@@ -124,8 +124,8 @@ const InstitutionFaculties = () => {
 
             const url =
                 selectedDept === "ALL"
-                    ? `${import.meta.env.VITE_BACKEND_URL}/api/faculties/institution/${institutionId}`
-                    : `${import.meta.env.VITE_BACKEND_URL}/api/faculties/department/${selectedDept}`;
+                    ? `${import.meta.env.VITE_BACKEND_URL}/api/faculties/by-institution/${institutionId}`
+                    : `${import.meta.env.VITE_BACKEND_URL}/api/faculties/by-department/${selectedDept}`;
 
             const res = await fetch(url, {
                 headers: { Authorization: `Bearer ${institutionToken}` },
@@ -232,7 +232,7 @@ const InstitutionFaculties = () => {
             setFinishLoadingMap((p) => ({ ...p, [itemKey]: true }));
 
             const res = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/finish-course-by-faculty/${facultyId}/${courseId}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/courses/${courseId}/finish`,
                 {
                     method: "PUT",
                     headers: { Authorization: `Bearer ${institutionToken}` },
@@ -285,7 +285,7 @@ const InstitutionFaculties = () => {
             setIsDeletingFaculty(true);
 
             const res = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/delete-faculty/${actionModal.facultyId}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${actionModal.facultyId}`,
                 {
                     method: "DELETE",
                     headers: { Authorization: `Bearer ${institutionToken}` },
@@ -347,7 +347,7 @@ const InstitutionFaculties = () => {
 
             if (nextIsActive === false && currentFaculty?.isInCharge) {
                 const resInCharge = await fetch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/faculties/toggle-in-charge/${facultyId}`,
+                    `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/in-charge`,
                     {
                         method: "PUT",
                         headers: {
@@ -373,7 +373,7 @@ const InstitutionFaculties = () => {
             }
 
             const res = await fetch(
-                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/change-status/${facultyId}`,
+                `${import.meta.env.VITE_BACKEND_URL}/api/faculties/${facultyId}/status`,
                 {
                     method: "PUT",
                     headers: {
