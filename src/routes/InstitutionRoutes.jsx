@@ -26,6 +26,7 @@ import EditCourse from "../pages/institution/courses/EditCourse";
 import InstitutionFaculties from "../pages/institution/faculties/InstitutionFaculties";
 import { Edit2 } from "lucide-react";
 import EditFaculty from "../pages/institution/faculties/EditFaculty";
+import CreateFaculty from "../pages/institution/faculties/CreateFaculty";
 
 /* ---------- Guards ---------- */
 
@@ -124,6 +125,7 @@ const InstitutionRoutes = () => {
         <Route path="courses" element={<InstitutionCourses />} />
         <Route path="courses/edit/:courseId" element={<EditCourse />} />
 
+        <Route path="faculties/create" element={<CreateFaculty />} />
         <Route path="faculties" element={<InstitutionFaculties />} />
         <Route path="/faculties/edit/:facultyId" element={<EditFaculty />} />
 
