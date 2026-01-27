@@ -17,14 +17,15 @@ import {
     BadgeCheck,
     Ban,
     CheckCircle2,
+    X,
+    Trash,
 } from "lucide-react";
 
 import ConfirmModal from "../../../components/ConfirmModal";
 import Loader from "../../../components/Loader";
 
 /**
- * ✅ Small, reusable tab button UI (top-left like your screenshot)
- * - Keep it generic so you can add more tabs later
+ * ✅ Small, reusable tab button UI (top-left)
  */
 const ModalTabs = ({ active, onChange, tabs = [] }) => {
     return (
@@ -37,8 +38,8 @@ const ModalTabs = ({ active, onChange, tabs = [] }) => {
                         key={t.key}
                         type="button"
                         onClick={() => onChange(t.key)}
-                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-bold transition
-              ${isActive ? "" : "hover:opacity-90"}`}
+                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-bold transition ${isActive ? "" : "hover:opacity-90"
+                            }`}
                         style={{
                             background: isActive ? "var(--surface)" : "var(--surface-2)",
                             borderColor: isActive ? "var(--accent)" : "var(--border)",
